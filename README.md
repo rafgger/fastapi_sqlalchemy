@@ -7,6 +7,7 @@ In this article, I'll provide you with a simple and straightforward guide on how
 ## Topics Covered
 
 - Run the SQLAlchemy FastAPI App Locally
+    - uvicorn app.main:app --host localhost --port 8000 --reload
 - Run the Frontend App Locally
 - Setup FastAPI and Run the HTTP Server
 - Designing the CRUD API

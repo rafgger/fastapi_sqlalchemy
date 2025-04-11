@@ -13,6 +13,9 @@ open on: http://127.0.0.1:8000/docs
 
 docker: docker-compose up -d
 
+docker-compose down -v --remove-orphans
+docker-compose up --build
+
 
 (frontend: frontend-reactjs-crud-crypto-app  https://github.com/rafgger/frontend-reactjs-crud-crypto-app)
 

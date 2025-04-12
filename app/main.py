@@ -2,15 +2,14 @@ from app import models, note
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, get_db
-from dotenv import load_dotenv
+# from dotenv import load_dotenv # removed for Docker
 import os
 import requests
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session
 
 models.Base.metadata.create_all(bind=engine)
-
-load_dotenv()
+# load_dotenv() # removed for Docker
 
 app = FastAPI()
 
@@ -60,7 +59,7 @@ async def get_post(post_id: int):
 @app.get('/crypto-price-ethereum')
 async def get_crypto_price():
     try:
-        api_key = os.getenv("api_key")
+        api_key = os.getenv("API_KEY")
         if not api_key:
             raise HTTPException(status_code=500, detail="API key not configured")
 

@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class NoteBaseSchema(BaseModel):
     id: str | None = None
     title: str
-    content: str
+    content: str | None = None
     category: str | None = None
     published: bool = False
     createdAt: datetime | None = None

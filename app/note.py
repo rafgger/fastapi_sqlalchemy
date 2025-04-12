@@ -46,7 +46,7 @@ def create_note(payload: schemas.NoteBaseSchema, db: Session = Depends(get_db)):
 
         # Retrieve the CoinGecko coin ID using the payload title
         coin_id = get_coin_id(payload.title)
-
+        
         # Build the API URL using the retrieved coin ID
         url = (
             f"https://api.coingecko.com/api/v3/simple/price"

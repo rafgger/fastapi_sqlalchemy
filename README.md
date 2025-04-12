@@ -1,6 +1,8 @@
 # Crypto CRUD App with FastAPI and SQLAlchemy
 # backend
 
+create your .env file + get API KEY from coingecko
+
 docker-compose up -d
 
 open on: http://localhost:8000/docs

@@ -13,6 +13,8 @@ close with: docker-compose down
 
 <img src="https://github.com/user-attachments/assets/620df06c-8e77-46f9-9813-552d6d652997" alt="frontend with docker" width="500"/>
 
+<img src="https://github.com/rafgger/fastapi_sqlalchemy/blob/87789ea7f532d1815c4336feaccb9e59d578f8dd/env_variables.PNG" alt=".env file" width="500"/>
+
 
 ## local deployment 
 use branch: run-localhost

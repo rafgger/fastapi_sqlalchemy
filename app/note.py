@@ -1,9 +1,12 @@
 from . import schemas, models
 from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException, status, APIRouter, Response
+
 from .database import get_db
 import requests
 import os
+import app
+# from .note import get_coin_id
 # from dotenv import load_dotenv # removed for Docker
 
 # load_dotenv() # removed for Docker
@@ -11,13 +14,6 @@ import os
 router = APIRouter()
 
 
-@router.get('/')
-def get_notes(db: Session = Depends(get_db), limit: int = 10, page: int = 1, search: str = ''):
-    skip = (page - 1) * limit
-
-    notes = db.query(models.Note).filter(
-        models.Note.title.contains(search)).limit(limit).offset(skip).all()
-    return {'status': 'success', 'results': len(notes), 'notes': notes}
 
 def get_coin_id(symbol_or_name):
     """
@@ -34,6 +30,15 @@ def get_coin_id(symbol_or_name):
         raise HTTPException(status_code=404, detail="Coin not found")
     else:
         raise HTTPException(status_code=response.status_code, detail="Failed to fetch coin list from CoinGecko")
+
+
+@router.get('/')
+def get_notes(db: Session = Depends(get_db), limit: int = 10, page: int = 1, search: str = ''):
+    skip = (page - 1) * limit
+
+    notes = db.query(models.Note).filter(
+        models.Note.title.contains(search)).limit(limit).offset(skip).all()
+    return {'status': 'success', 'results': len(notes), 'notes': notes}
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)

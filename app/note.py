@@ -93,12 +93,46 @@ def update_note(noteId: str, payload: schemas.NoteBaseSchema, db: Session = Depe
     if not db_note:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'No note with this id: {noteId} found')
+
     update_data = payload.dict(exclude_unset=True)
-    note_query.filter(models.Note.id == noteId).update(update_data,
-                                                       synchronize_session=False)
-    db.commit()
-    db.refresh(db_note)
-    return {"status": "success", "note": db_note}
+
+    try:
+        # If the title is being updated, also update the content (crypto price)
+        if "title" in update_data:
+            api_key = os.getenv("API_KEY")
+            if not api_key:
+                raise HTTPException(status_code=500, detail="API key not configured")
+
+            coin_id = get_coin_id(update_data["title"])
+
+            url = (
+                f"https://api.coingecko.com/api/v3/simple/price"
+                f"?ids={coin_id}"
+                f"&vs_currencies=usd"
+                f"&x_cg_demo_api_key={api_key}"
+            )
+
+            response = requests.get(url)
+            if response.status_code != 200:
+                raise HTTPException(status_code=response.status_code, detail="API call failed")
+
+            data = response.json()
+            price = data.get(coin_id, {}).get("usd")
+
+            if price is None:
+                raise HTTPException(status_code=500, detail="Invalid response from crypto API")
+
+            update_data["content"] = f"Current {update_data['title']} price (USD):\n${price}"
+
+        note_query.update(update_data, synchronize_session=False)
+        db.commit()
+        db.refresh(db_note)
+
+        return {"status": "success", "note": db_note}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 
 @router.get('/{noteId}')

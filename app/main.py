@@ -91,7 +91,7 @@ def update_all_note_prices():
         db.close()
 
 # Schedule the job to run every 30 minutes
-scheduler.add_job(update_all_note_prices, "interval", minutes=30)
+scheduler.add_job(update_all_note_prices, "interval", minutes=1)
 scheduler.start()
 
 # Ensure the scheduler is shut down when the application exits

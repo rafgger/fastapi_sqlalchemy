@@ -3,5 +3,3 @@ venv/
 .env
 *.db
 docker-compose.yml
-Dockerfile
-Makefile1

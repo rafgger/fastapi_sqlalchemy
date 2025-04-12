@@ -4,9 +4,9 @@ from fastapi import Depends, HTTPException, status, APIRouter, Response
 from .database import get_db
 import requests
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv # removed for Docker
 
-load_dotenv()
+# load_dotenv() # removed for Docker
 
 router = APIRouter()
 
@@ -40,7 +40,7 @@ def get_coin_id(symbol_or_name):
 def create_note(payload: schemas.NoteBaseSchema, db: Session = Depends(get_db)):
     try:
         # Get the API key
-        api_key = os.getenv("api_key")
+        api_key = os.getenv("API_KEY") #locally might be api_key, in docker it is API_KEY
         if not api_key:
             raise HTTPException(status_code=500, detail="API key not configured")
 

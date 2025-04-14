@@ -17,6 +17,7 @@ close with: docker-compose down
 
 <img src="https://github.com/rafgger/fastapi_sqlalchemy/blob/87789ea7f532d1815c4336feaccb9e59d578f8dd/env_variables.PNG" alt=".env file" width="200"/>
 
+api_key to obtain from [Coingecko](https://www.coingecko.com/en/developers/dashboard)
 
 ## local deployment 
 use branch: run-localhost

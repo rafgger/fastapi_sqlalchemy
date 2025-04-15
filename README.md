@@ -11,6 +11,8 @@ use together with [my frontend ](https://github.com/rafgger/fastapi-frontend)
 
 close with: docker-compose down
 
+(the .env file needs to be named exactly .env)
+
 <img src="https://github.com/user-attachments/assets/620df06c-8e77-46f9-9813-552d6d652997" alt="frontend with docker" width="500"/>
 
 
